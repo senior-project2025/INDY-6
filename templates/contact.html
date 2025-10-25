@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="contact-page fade-in">
+    <div class="page-header">
+        <h2>{{ t('contact_us') }}</h2>
+        <p class="lead">We’d love to hear from you — questions, feedback, or tutorial requests.</p>
+    </div>
+
+    <div class="contact-body">
+        <div class="contact-info">
+            <p>Email: <a href="mailto:iknowit.team@gmail.com">iknowit.team@gmail.com</a></p>
+            <p>Or send us a message using the form below.</p>
+        </div>
+
+        <form action="{{ url_for('contact') }}" method="post" class="contact-form">
+            <label for="name">{{ t('name') }}</label>
+            <input id="name" name="name" type="text" required>
+
+            <label for="email">{{ t('email') }}</label>
+            <input id="email" name="email" type="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit" class="btn primary">{{ t('send_message') }}</button>
+        </form>
+
+        {% if success %}
+        <p class="success-message">Thank you — your message has been received. We'll get back to you soon.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

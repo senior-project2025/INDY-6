@@ -1,0 +1,26 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<section class="hero fade-in">
+    <p class="mission">{{ t('mission') }}</p>
+
+    <div class="device-card">
+        <h3>{{ t('choose_device') }}</h3>
+        <div class="device-buttons">
+            <a class="device-btn ios" href="{{ url_for('ios_page') }}">{{ t('ios') }}</a>
+            <a class="device-btn android" href="{{ url_for('android_page') }}">{{ t('android') }}</a>
+        </div>
+    </div>
+</section>
+
+<section class="testimonies fade-in">
+    <h3>{{ t('testimonies') }}</h3>
+    <div class="testimony-list">
+        {% for t_item in testimonies %}
+        <blockquote class="testimony">
+            <p>"{{ t_item.text }}"</p>
+            <footer>- {{ t_item.name }}</footer>
+        </blockquote>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<section class="device-page fade-in">
+    <h2>{{ device }} Tutorials</h2>
+
+    {% for cat in tutorials %}
+    <article class="category">
+        <h3>{{ cat.category }}</h3>
+        <ul>
+            {% for item in cat.items %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </article>
+    {% endfor %}
+
+    <aside class="device-faq">
+        <h3>FAQ ({{ device }})</h3>
+        <p>Short FAQ items for {{ device }} users.</p>
+    </aside>
+</section>
+{% endblock %}

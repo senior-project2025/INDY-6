@@ -1,0 +1,317 @@
+﻿:root {
+    --accent: #2b7a78;
+    --muted: #666;
+    --bg: #f6f6f6;
+    --card: #ffffff;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: #222;
+    -webkit-font-smoothing: antialiased;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    padding: 12px 18px;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid #e6e6e6;
+    z-index: 50;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+    .title a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn {
+    border: 1px solid #ddd;
+    background: transparent;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+    .btn.primary {
+        background: var(--accent);
+        color: white;
+        border: none;
+    }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+    .dropdown .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background: var(--card);
+        min-width: 140px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #222;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+    .dropdown-content a:last-child {
+        border-bottom: none;
+    }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100%;
+    background: var(--card);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    padding: 16px;
+    transition: left .25s ease;
+    z-index: 60;
+}
+
+    .sidebar.open {
+        left: 0;
+    }
+
+.close-x {
+    background: none;
+    border: none;
+    font-size: 28px;
+    float: right;
+    cursor: pointer;
+}
+
+.main {
+    padding: 16px;
+}
+
+.hero {
+    padding: 36px 18px;
+    text-align: center;
+}
+
+.mission {
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    color: var(--muted);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.device-card {
+    display: inline-block;
+    background: var(--card);
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.device-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.device-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: inherit;
+}
+
+.testimonies {
+    padding: 18px;
+    max-width: 1000px;
+    margin: 6px auto;
+}
+
+.testimony-list {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+}
+
+.testimony {
+    background: var(--card);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    margin: 0;
+}
+
+.page-header {
+    text-align: center;
+    margin: 18px 0;
+}
+
+.team-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.team-member {
+    width: 260px;
+    background: var(--card);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+    .team-member img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+
+.contact-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 12px;
+    background: transparent;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 520px;
+    margin-top: 12px;
+}
+
+    .contact-form input, .contact-form textarea, .signup-form input {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        width: 100%;
+    }
+
+.signup-form {
+    max-width: 480px;
+    margin: 20px auto;
+    background: var(--card);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.success-message {
+    color: green;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+    z-index: 70;
+}
+
+    .modal .modal-content {
+        background: var(--card);
+        padding: 18px;
+        border-radius: 8px;
+        width: 360px;
+        max-width: 95%;
+    }
+
+    .modal .close {
+        float: right;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+.flash {
+    background: #fffbdd;
+    border: 1px solid #f0e6a8;
+    padding: 8px;
+    max-width: 900px;
+    margin: 12px auto;
+    border-radius: 6px;
+}
+
+.fade-in {
+    animation: fadeIn 400ms ease both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.category {
+    background: var(--card);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+@media (max-width:720px) {
+    .team-member {
+        width: 100%;
+    }
+
+    .title {
+        font-size: 1.1rem;
+    }
+}

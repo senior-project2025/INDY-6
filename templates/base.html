@@ -1,0 +1,77 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ t('title') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top bar -->
+    <header class="topbar">
+        <h1 class="title"><a href="{{ url_for('index') }}">{{ t('title') }}</a></h1>
+        <div class="actions">
+            <button id="loginBtn" class="btn">{{ t('login') }}</button>
+
+            <div class="dropdown">
+                <button class="btn dropbtn">🌐 {{ t('language') }} <span class="arrow">▾</span></button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('set_language', lang='en') }}">English</a>
+                    <a href="{{ url_for('set_language', lang='es') }}">Español</a>
+                    <a href="{{ url_for('set_language', lang='zh') }}">中文</a>
+                </div>
+            </div>
+
+            <button id="menuBtn" class="btn">{{ t('menu') }}</button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+        <button id="closeSidebar" class="close-x">&times;</button>
+        <ul>
+            <li><a href="{{ url_for('about') }}">{{ t('about_us') }}</a></li>
+            <li><a href="{{ url_for('contact') }}">{{ t('contact_us') }}</a></li>
+            <li><a href="{{ url_for('faq') }}">{{ t('faq') }}</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash">
+            {% for m in messages %}
+            <div>{{ m }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>{{ t('login') }}</h2>
+            <form method="post" action="{{ url_for('login') }}">
+                <label for="username">{{ t('email') }} / {{ t('name') }}</label>
+                <input id="username" name="username" type="text" required>
+                <label for="password">{{ t('password') }}</label>
+                <input id="password" name="password" type="password" required>
+                <button type="submit" class="btn primary">{{ t('login') }}</button>
+            </form>
+            <div class="modal-footer">
+                <a href="{{ url_for('signup') }}">{{ t('create_account') }}</a> |
+                <a href="#">{{ t('forgot_password') }}</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

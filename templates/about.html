@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="about-page fade-in">
+    <div class="page-header">
+        <h2>{{ t('about_us') }}</h2>
+        <p class="lead">Learn about the people behind iKnowIT and why we created this site.</p>
+    </div>
+
+    <div class="team-grid">
+        {% for member in team %}
+        <div class="team-member">
+            <img src="{{ url_for('static', filename=member.img) }}" alt="{{ member.name }}" onerror="this.style.display='none'">
+            <h3>{{ member.name }}</h3>
+            <p class="role">{{ member.role }}</p>
+            <p class="bio">{{ member.bio }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <section class="why-section">
+        <h3>Why we built iKnowIT</h3>
+        <p>{{ t('mission') }}</p>
+    </section>
+</section>
+{% endblock %}
