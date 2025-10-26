@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --accent: #2b7a78;
     --muted: #666;
     --bg: #f6f6f6;
@@ -209,6 +209,38 @@ body {
         margin-bottom: 8px;
         display: inline-block;
     }
+.member-social {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+    .social-link.github {
+        background-color: #333;
+    }
+
+    .social-link.linkedin {
+        background-color: #0077b5;
+    }
+
+    .social-link:hover {
+        transform: translateY(-2px);
+    }
+
 
 .contact-body {
     max-width: 800px;
