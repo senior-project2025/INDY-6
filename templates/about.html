@@ -13,6 +13,20 @@
             <h3>{{ member.name }}</h3>
             <p class="role">{{ member.role }}</p>
             <p class="bio">{{ member.bio }}</p>
+
+            <!-- Social links -->
+            <div class="member-social">
+                {% if member.github %}
+                <a href="{{ member.github }}" target="_blank" rel="noopener noreferrer" class="social-link github">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                {% endif %}
+                {% if member.linkedin %}
+                <a href="{{ member.linkedin }}" target="_blank" rel="noopener noreferrer" class="social-link linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </div>
