@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from markupsafe import escape
 
@@ -150,20 +150,45 @@ def android_page():
 
 @app.route('/about')
 def about():
-    # info about everyone on our team along with our headshots (makes it more personal)
+    # info about everyone on our team along with our headshots
     team = [
-        {"name": "Julissa Rivera", "role": "Developer, Documentation", "bio":
-         """
-         As a first-generation Mexican American, I witnessed firsthand how challenging it can be for my parents and relatives to navigate technology. 
-         I often took the time to show them how to use apps on their phones and reassure them that, with a little practice, they could get the hang of it. 
-         I know many other parents and individuals face the same struggle, so I wanted to use this project as an opportunity to help others in similar situations 
-         gain confidence/independence when it comes to using technology. 😊.
-         """
-         , "img": "images/julissa.jpeg"},
-        {"name": "David Bazan", "role": "Developer, Documentation", "bio": "Teaching tech should be simple, visual, and friendly.", "img": "images/bazan.webp"},
-        {"name": "Jacqueline Juarez", "role": "Team Lead, Developer", "bio": "I focused on making the website intuitive and easy to read.", "img": "images/jacqui.webp"}
+        {
+            "name": "Julissa Rivera",
+            "role": "Developer, Documentation",
+            "bio": (
+                "As a first-generation Mexican American, I witnessed firsthand how challenging it can be for my parents and relatives to navigate technology. "
+                "I often took the time to show them how to use apps on their phones and reassure them that, with a little practice, they could get the hang of it. "
+                "I know many other parents and individuals face the same struggle, so I wanted to use this project as an opportunity to help others in similar situations "
+                "gain confidence/independence when it comes to using technology. 😊."
+            ),
+            "img": "images/julissa.jpeg",
+            "github": "https://github.com/julissa-r",
+            "linkedin": "https://www.linkedin.com/in/rivera-j2911/"
+        },
+        {
+            "name": "David Bazan",
+            "role": "Developer, Documentation",
+            "bio": (
+                "Technology should be accessible to everyone, despite language or past experience. "
+                "As a first-generation Hispanic, I understand the frustration of learning the ever-expanding technology. "
+                "The other developers and I share this experience and made this project to assist those to develop critical skills that become more relevant by the day."
+            ),
+            "img": "images/bazan.webp",
+            "github": "https://github.com/d-bazan",
+            "linkedin": "https://www.linkedin.com/in/d-bazan/"
+        },
+        {
+            "name": "Jacqueline Juarez",
+            "role": "Team Lead, Developer",
+            "bio": "I focused on making the website intuitive and easy to read.",
+            "img": "images/jacqui.webp",
+            "github": "https://github.com/Jacqjuarez",
+            "linkedin": "https://www.linkedin.com/in/jacqueline-juarez8/"
+        }
     ]
+
     return render_template('about.html', team=team)
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
