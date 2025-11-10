@@ -206,6 +206,13 @@ def faq():
     faqs = [
         {"q": "How do I choose my device?", "a": "Click the iOS or Android button on the homepage to see device-specific tutorials."},
         {"q": "How do I create an account?", "a": "Open the Login modal and click 'Create account' to sign up."},
+        {"q": "How do I change the language", "a": "Click the language button on the top-right to select languages."},
+        {"q": "How do I give feedback?", "a": "Provide feedback by clicking 'menu' then 'contact us'. By filling out your credentials and inserting your message you can send fedback right to us!"},
+        {"q": "What do I do if I forget my password?", "a": "On the login screen, click 'Forgot Password?' and enter your email address. We'll send you a link to reset your password."},
+        {"q": "My device/problem is not listed.", "a": "Consider sending an email through the contact page telling us what we can do better. First click menu and in the pop-up window, click contact us. Once there you can leave us a message!"},
+        {"q": "Can I download the video tutorials for offline viewing?", "a": "Currently, videos are only available for streaming on the website. We are exploring a offline options in the future."},
+        {"q": "I'm having trouble following along with the tutorial on my device.", "a": "There is a text guide below the video, please click 'view transcript' to see the video in a written tutorial instead."},
+        {"q": "Are there any other languages?", "a": "Currently there is not any other language provided than what is available. If you'd like to request a language to be added, consider giving us feedback in our contact us page. First click menu and in the pop-up window, click contact us. Once there you can leave us a message!"},
     ]
     return render_template('faq.html', faqs=faqs)
 
