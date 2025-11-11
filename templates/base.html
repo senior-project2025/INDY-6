@@ -3,31 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ t('title') }}</title>
+    <title data-i18n="title">{{ t('title') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 </head>
 <body>
     <!-- Top bar -->
     <header class="topbar">
-        <h1 class="title"><a href="{{ url_for('index') }}">{{ t('title') }}</a></h1>
+        <h1 class="title"><a href="{{ url_for('index') }}" class="brand no-translate">iKnowIT</a></h1>
         <div class="actions">
-            <button id="loginBtn" class="btn">{{ t('login') }}</button>
-
-            <div class="dropdown">
-                <button class="btn dropbtn">🌐 {{ t('language') }} <span class="arrow">▾</span></button>
-                <div class="dropdown-content">
-                    <a href="{{ url_for('set_language', lang='en') }}">English</a>
-                    <a href="{{ url_for('set_language', lang='es') }}">Español</a>
-                    <a href="{{ url_for('set_language', lang='zh') }}">中文</a>
-                </div>
-            </div>
-
-            <button id="menuBtn" class="btn">{{ t('menu') }}</button>
+            <button id="loginBtn" class="btn" data-i18n="login">{{ t('login') }}</button>
+            <button id="langBtn" class="btn">🌐 <span data-i18n="language">{{ t('language') }}</span></button>
+            <button id="menuBtn" class="btn" data-i18n="menu">{{ t('menu') }}</button>
         </div>
     </header>
 
@@ -35,13 +25,13 @@
     <nav id="sidebar" class="sidebar">
         <button id="closeSidebar" class="close-x">&times;</button>
         <ul>
-            <li><a href="{{ url_for('about') }}">{{ t('about_us') }}</a></li>
-            <li><a href="{{ url_for('contact') }}">{{ t('contact_us') }}</a></li>
-            <li><a href="{{ url_for('faq') }}">{{ t('faq') }}</a></li>
+            <li><a href="{{ url_for('about') }}" data-i18n="about_us">{{ t('about_us') }}</a></li>
+            <li><a href="{{ url_for('contact') }}" data-i18n="contact_us">{{ t('contact_us') }}</a></li>
+            <li><a href="{{ url_for('faq') }}" data-i18n="faq">{{ t('faq') }}</a></li>
         </ul>
     </nav>
 
-    <main id="main-content">
+    <main id="main-content" class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <div class="flash">
@@ -51,7 +41,6 @@
         </div>
         {% endif %}
         {% endwith %}
-
         {% block content %}{% endblock %}
     </main>
 
@@ -59,18 +48,44 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeLogin">&times;</span>
-            <h2>{{ t('login') }}</h2>
+            <h2 data-i18n="login">{{ t('login') }}</h2>
             <form method="post" action="{{ url_for('login') }}">
-                <label for="username">{{ t('email') }} / {{ t('name') }}</label>
+                <label for="username" data-i18n="email">{{ t('email') }}</label> /
+                <span data-i18n="name">{{ t('name') }}</span>
                 <input id="username" name="username" type="text" required>
-                <label for="password">{{ t('password') }}</label>
+                <label for="password" data-i18n="password">{{ t('password') }}</label>
                 <input id="password" name="password" type="password" required>
-                <button type="submit" class="btn primary">{{ t('login') }}</button>
+                <button type="submit" class="btn primary" data-i18n="login">{{ t('login') }}</button>
             </form>
             <div class="modal-footer">
-                <a href="{{ url_for('signup') }}">{{ t('create_account') }}</a> |
-                <a href="#">{{ t('forgot_password') }}</a>
+                <a href="{{ url_for('signup') }}" data-i18n="create_account">{{ t('create_account') }}</a> |
+                <a href="#" data-i18n="forgot_password">{{ t('forgot_password') }}</a>
             </div>
+        </div>
+    </div>
+
+    <!-- Language Modal -->
+    <div id="langModal" class="modal">
+        <div class="modal-content language-modal-content">
+            <span class="close" id="closeLang">&times;</span>
+            <h2 data-i18n="language">{{ t('language') }}</h2>
+
+            <form id="langForm">
+                <div class="language-grid">
+                    <button type="button" class="lang-btn" data-lang="en">English</button>
+                    <button type="button" class="lang-btn" data-lang="es">Español</button>
+                    <button type="button" class="lang-btn" data-lang="fr">Français</button>
+                    <button type="button" class="lang-btn" data-lang="it">Italiano</button>
+                    <button type="button" class="lang-btn" data-lang="pt">Português</button>
+                    <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+                    <button type="button" class="lang-btn" data-lang="ko">한국어</button>
+                    <button type="button" class="lang-btn" data-lang="zh-CN">中文</button>
+                    <button type="button" class="lang-btn" data-lang="de">Deutsch</button>
+                    <button type="button" class="lang-btn" data-lang="ar">العربية</button>
+                    <button type="button" class="lang-btn" data-lang="ru">Русский</button>
+                    <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+                </div>
+            </form>
         </div>
     </div>
 
