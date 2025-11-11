@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="hero fade-in">
-    <p class="mission">{{ t('mission') }}</p>
+    <p class="mission" data-i18n="mission">{{ t('mission') }}</p>
 
     <div class="device-card">
-        <h3>{{ t('choose_device') }}</h3>
+        <h3 data-i18n="choose_device">{{ t('choose_device') }}</h3>
         <div class="device-buttons">
-            <a class="device-btn ios" href="{{ url_for('ios_page') }}">{{ t('ios') }}</a>
-            <a class="device-btn android" href="{{ url_for('android_page') }}">{{ t('android') }}</a>
+            <a class="device-btn ios" href="{{ url_for('ios_page') }}" data-i18n="ios">{{ t('ios') }}</a>
+            <a class="device-btn android" href="{{ url_for('android_page') }}" data-i18n="android">{{ t('android') }}</a>
         </div>
     </div>
 </section>
 
 <section class="testimonies fade-in">
-    <h3>{{ t('testimonies') }}</h3>
+    <h3 data-i18n="testimonies">{{ t('testimonies') }}</h3>
     <div class="testimony-list">
         {% for t_item in testimonies %}
         <blockquote class="testimony">
