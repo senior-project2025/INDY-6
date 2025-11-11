@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="tutorial-page fade-in">
+  <h2>{{ device }} Tutorials</h2>
+  <p>Learn how to use your {{ device }} device with step-by-step guides designed for beginners.</p>
+
+  {% if tutorials %}
+  <div class="tutorial-grid">
+    {% for t in tutorials %}
+    <div class="tutorial-card">
+      <h3>{{ t.category }}</h3>
+      <ul>
+        {% for item in t.items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="no-tutorials">No tutorials available for {{ device }} yet. Check back soon!</p>
+  {% endif %}
+
+  <div style="margin-top:2rem;">
+    <a href="{{ url_for('index') }}" class="btn primary">← Back to Home</a>
+  </div>
+</main>
+{% endblock %}

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify  
-from markupsafe import escape
-from deep_translator import GoogleTranslator
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify   # type: ignore
+from markupsafe import escape # type: ignore
+from deep_translator import GoogleTranslator # type: ignore
+import threading    
 
 app = Flask(__name__)
 app.secret_key = "replace-with-a-strong-random-secret"
@@ -38,23 +39,29 @@ SOURCE_TEXTS = {
 translation_cache = {}
 
 def translate_text(text, target_lang):
-    """Translate text using deep-translator and cache it."""
-    if target_lang == 'en':
+    """Translate text asynchronously (non-blocking) and cache results."""
+    if not text or target_lang == 'en':
         return text
 
     cache_key = f"{target_lang}:{text}"
     if cache_key in translation_cache:
-        return translation_cache[cache_key]
+        return translation_cache[cache_key]  # Already done
 
-    try:
-        translated = GoogleTranslator(source='auto', target=target_lang).translate(text)
-        print(f"[DEBUG] {text[:40]} → {translated[:40]} ({target_lang})")
-    except Exception as e:
-        print(f"[Translation Error] {e}")
-        translated = text  # fallback
+    # Immediately return the English version (optimistic UI)
+    translation_cache[cache_key] = text
 
-    translation_cache[cache_key] = translated
-    return translated
+    # Background thread to fetch translation
+    def async_translate():
+        try:
+            translated = GoogleTranslator(source='auto', target=target_lang).translate(text)
+            translation_cache[cache_key] = translated
+            print(f"[Async Translation] Cached: {cache_key}")
+        except Exception as e:
+            print(f"[Async Translation Error] {e}")
+
+    threading.Thread(target=async_translate, daemon=True).start()
+    return text
+
 
 def t(key):
     """Return translated text based on session language."""
@@ -145,7 +152,7 @@ def ios_page():
         {'category': 'Text Messaging', 'items': ['Send a message', 'Attach photo', 'Group chat']},
         {'category': 'Contacts', 'items': ['Add contact', 'Import contacts']},
     ]
-    return render_template('device.html', device='iOS', tutorials=tutorials)
+    return render_template('tutorials_ios.html', tutorials=tutorials)
 
 @app.route('/android')
 def android_page():
@@ -153,7 +160,8 @@ def android_page():
         {'category': 'Calling', 'items': ['Make a call', 'Voicemail']},
         {'category': 'App installation', 'items': ['Install from Play Store']},
     ]
-    return render_template('device.html', device='Android', tutorials=tutorials)
+    return render_template('tutorials_android.html', tutorials=tutorials)
+
 
 @app.route('/about')
 def about():
@@ -250,6 +258,9 @@ def translate_route():
     print(translated)
 
     return jsonify({'translated': translated})
+@app.route('/debug')
+def debug_page():
+    return render_template('tutorials_ios.html', tutorials=[{'category':'Test','items':['Item 1','Item 2']}])
 
 
 if __name__ == '__main__':
