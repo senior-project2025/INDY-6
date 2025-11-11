@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="faq fade-in">
-    <h1 class = "page-header">Frequently Asked Questions</h1>
+    <h1 class="page-header">Frequently Asked Questions</h1>
     <p>There is a list of frequently asked questions below:</p>
 
-    <div class = "faq-list">
+    <div class="faq-list">
         <p>Click or tap a question to see its answer</p>
         {% for item in faqs %}
-        <div class = "faq-item">
-            <button class = "faq-question">{{ item.q }} </button>
+        <div class="faq-item">
+            <button class="faq-question">{{ item.q }}</button>
             <div class="faq-answer">
                 <p>{{ item.a }}</p>
             </div>
