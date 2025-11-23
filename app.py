@@ -233,6 +233,8 @@ def faq():
     faqs = [
         {"q": "How do I choose my device?", "a": "Click the iOS or Android button on the homepage to see device-specific tutorials."},
         {"q": "How do I create an account?", "a": "Open the Login modal and click 'Create account' to sign up."},
+        {"q": "How do can I change the language?", "a": "Click the language button on the top-right to see other languages."},
+        {"q": "How do I can I provide feedback?", "a": "Open the Menu modal and click 'Contact Us' to provide any feedback."},
     ]
     return render_template('faq.html', faqs=faqs)
 
