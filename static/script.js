@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeLang = document.getElementById('closeLang');
     const langForm = document.getElementById('langForm'); 
 
+    const searchInput = document.getElementById('faqSearch');
+    const tutorialSearchInput = document.getElementById('tutorialSearch');
+    const tutorialCards = document.querySelectorAll('.tutorial-card')
     // --- Login Modal ---
     if (loginBtn) loginBtn.addEventListener('click', () => loginModal.classList.add('show'));
     if (closeLogin) closeLogin.addEventListener('click', () => loginModal.classList.remove('show'));
@@ -89,4 +92,41 @@ document.addEventListener('DOMContentLoaded', function () {
             */
         });
     });
+    
+    //FAQ Search bar function
+        if (searchInput){
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        // -- displays
+                    if (question.includes(query) || answer.includes(query)) {
+                item.style.display = '';
+            }
+                    else {
+                        item.style.display = 'none';
+                    }
+                })
+            })
+        }
+                //ios/android page search
+                if (tutorialSearchInput){
+                tutorialSearchInput.addEventListener('input', () => {
+                const query = tutorialSearchInput.value.toLowerCase();
+                
+                tutorialCards.forEach(card => {
+                const category = card.querySelector('h3').textContent.toLowerCase();
+                const items = Array.from(card.querySelectorAll('li')).map(li => li.textContent.toLowerCase());
+                const match = category.includes(query) || items.some(item => item.includes(query));
+                        // -- displays
+                    if (match) {
+                        card.style.display = '';
+                     }
+                    else {
+                        card.style.display = 'none';
+                    }
+                })
+            })
+        }
 });
