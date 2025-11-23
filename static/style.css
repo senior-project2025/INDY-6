@@ -407,6 +407,23 @@ main#main-content {
     transform: rotate(180deg);
 }
 
+/*Faq Search bar stylings */
+.faq-search {
+    width: 100%;
+    text-align: left;
+    padding: 16px 16px;
+    font-size: 1rem;
+}
+
+.faq-search input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 
 /* Modal tweaks — centered properly */
 .modal {
@@ -615,4 +632,11 @@ main#main-content {
     color: #777;
     font-style: italic;
   }
-  
+ .tutorial-search{
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
