@@ -129,4 +129,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             })
         }
+                //Dark Mode
+            const themeSwitch = document.getElementById('theme-switch');
+            const enableDarkmode = () => {
+                document.documentElement.classList.add('darkmode')
+                localStorage.setItem('darkmode', 'active')
+            }
+
+            const disableDarkmode = () => {
+                document.documentElement.classList.remove('darkmode')
+                localStorage.setItem('darkmode', 'inactive')
+            }
+            
+            let darkmode = localStorage.getItem('darkmode');
+            if (darkmode==="active") enableDarkmode()
+
+            themeSwitch.addEventListener('click', () => {
+                darkmode = localStorage.getItem('darkmode')
+                darkmode!=="active" ? enableDarkmode() : disableDarkmode()
+            });
+
 });
