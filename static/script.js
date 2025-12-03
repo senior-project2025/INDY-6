@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
     const closeLogin = document.getElementById('closeLogin');
@@ -10,11 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const langBtn = document.getElementById('langBtn');
     const langModal = document.getElementById('langModal');
     const closeLang = document.getElementById('closeLang');
-    const langForm = document.getElementById('langForm'); 
+    const langForm = document.getElementById('langForm');
 
     const searchInput = document.getElementById('faqSearch');
     const tutorialSearchInput = document.getElementById('tutorialSearch');
-    const tutorialCards = document.querySelectorAll('.tutorial-card')
+    const tutorialCards = document.querySelectorAll('.tutorial-card');
+
     // --- Login Modal ---
     if (loginBtn) loginBtn.addEventListener('click', () => loginModal.classList.add('show'));
     if (closeLogin) closeLogin.addEventListener('click', () => loginModal.classList.remove('show'));
@@ -55,7 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(res => res.json())
                     .then(data => {
                         data.translated.forEach(item => {
-                            let el = document.querySelector(`[data-translate-key="${item.key}"]`) || document.querySelector(`[data-i18n="${item.key}"]`);
+                            let el = document.querySelector(`[data-translate-key="${item.key}"]`) ||
+                                document.querySelector(`[data-i18n="${item.key}"]`);
                             if (!el) {
                                 el = Array.from(document.querySelectorAll('.translate-text'))
                                     .find(e => e.innerText.trim().startsWith(item.translated_text.slice(0, 8)) === false);
@@ -80,73 +82,75 @@ document.addEventListener('DOMContentLoaded', function () {
     faqItems.forEach(item => {
         const question = item.querySelector(".faq-question");
         question.addEventListener("click", () => {
-            // Option 1: allow multiple open
             item.classList.toggle("active");
-
-            // Option 2: if you want only one open at a time, uncomment below:
-            /*
-            faqItems.forEach(other => {
-                if (other !== item) other.classList.remove("active");
-            });
-            item.classList.add("active");
-            */
         });
     });
-    
-    //FAQ Search bar function
-        if (searchInput){
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.toLowerCase();
-                faqItems.forEach(item => {
-                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
-                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
-                        // -- displays
-                    if (question.includes(query) || answer.includes(query)) {
-                item.style.display = '';
-            }
-                    else {
-                        item.style.display = 'none';
-                    }
-                })
-            })
-        }
-                //ios/android page search
-                if (tutorialSearchInput){
-                tutorialSearchInput.addEventListener('input', () => {
-                const query = tutorialSearchInput.value.toLowerCase();
-                
-                tutorialCards.forEach(card => {
+
+    // FAQ Search bar
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                if (question.includes(query) || answer.includes(query)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // ios/android page search
+    if (tutorialSearchInput) {
+        tutorialSearchInput.addEventListener('input', () => {
+            const query = tutorialSearchInput.value.toLowerCase();
+
+            tutorialCards.forEach(card => {
                 const category = card.querySelector('h3').textContent.toLowerCase();
                 const items = Array.from(card.querySelectorAll('li')).map(li => li.textContent.toLowerCase());
                 const match = category.includes(query) || items.some(item => item.includes(query));
-                        // -- displays
-                    if (match) {
-                        card.style.display = '';
-                     }
-                    else {
-                        card.style.display = 'none';
-                    }
-                })
-            })
-        }
-                //Dark Mode
-            const themeSwitch = document.getElementById('theme-switch');
-            const enableDarkmode = () => {
-                document.documentElement.classList.add('darkmode')
-                localStorage.setItem('darkmode', 'active')
-            }
-
-            const disableDarkmode = () => {
-                document.documentElement.classList.remove('darkmode')
-                localStorage.setItem('darkmode', 'inactive')
-            }
-            
-            let darkmode = localStorage.getItem('darkmode');
-            if (darkmode==="active") enableDarkmode()
-
-            themeSwitch.addEventListener('click', () => {
-                darkmode = localStorage.getItem('darkmode')
-                darkmode!=="active" ? enableDarkmode() : disableDarkmode()
+                card.style.display = match ? '' : 'none';
             });
+        });
+    }
 
+    // --- DARK MODE (FINAL FIXED VERSION) ---
+    const themeSwitch = document.getElementById('theme-switch');
+    const themeIcon = themeSwitch?.querySelector('.theme-icon');
+    const themeText = themeSwitch?.querySelector('.theme-text');
+
+    const applyDarkModeUI = () => {
+        if (!themeIcon || !themeText) return;
+        const isDark = document.documentElement.classList.contains('darkmode');
+        themeIcon.textContent = isDark ? "☀️" : "🌙";
+        themeText.textContent = isDark ? "Light mode" : "Dark mode";
+    };
+
+    const enableDarkmode = () => {
+        document.documentElement.classList.add('darkmode');
+        localStorage.setItem('darkmode', 'active');
+        applyDarkModeUI();
+    };
+
+    const disableDarkmode = () => {
+        document.documentElement.classList.remove('darkmode');
+        localStorage.setItem('darkmode', 'inactive');
+        applyDarkModeUI();
+    };
+
+    let darkmode = localStorage.getItem('darkmode');
+    if (darkmode === "active") {
+        enableDarkmode();
+    } else {
+        applyDarkModeUI();
+    }
+
+    if (themeSwitch) {
+        themeSwitch.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('darkmode');
+            isDark ? disableDarkmode() : enableDarkmode();
+        });
+    }
 });
