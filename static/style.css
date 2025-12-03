@@ -673,3 +673,29 @@ main#main-content {
     border-radius: 5px;
     box-sizing: border-box;
   }
+  .user-info-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.user-welcome {
+    font-size: 1.1rem;
+    margin-right: 10px;
+    color: #333;
+    font-weight: 500;
+}
+
+.profile-icon img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.profile-icon img:hover {
+    transform: scale(1.05);
+}

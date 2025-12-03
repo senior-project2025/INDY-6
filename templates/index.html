@@ -3,6 +3,15 @@
 
 <!-- Hero Section -->
 <section class="hero fade-in">
+  {% if session.get('user') %}
+<div class="user-info-bar">
+    <span class="user-welcome">Hi, {{ session['user'] }}!</span>
+
+    <a href="{{ url_for('profile') }}" class="profile-icon">
+        <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="Profile" />
+    </a>
+</div>
+{% endif %}
   <p class="mission" data-i18n="mission">{{ t('mission') }}</p>
 
   <!-- Promo video (optional placeholder) -->

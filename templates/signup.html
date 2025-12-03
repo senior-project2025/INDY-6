@@ -1,26 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="hero fade-in">
-    <p class="mission" data-i18n="mission">{{ t('mission') }}</p>
 
-    <div class="device-card">
-        <h3 data-i18n="choose_device">{{ t('choose_device') }}</h3>
-        <div class="device-buttons">
-            <a class="device-btn ios" href="{{ url_for('ios_page') }}" data-i18n="ios">{{ t('ios') }}</a>
-            <a class="device-btn android" href="{{ url_for('android_page') }}" data-i18n="android">{{ t('android') }}</a>
+<section class="signup-container fade-in">
+    <h2>Create Your Account</h2>
+
+    <form method="POST" action="{{ url_for('signup') }}" class="signup-form">
+
+        <div class="form-group">
+            <label for="name">{{ t('name') }}</label>
+            <input type="text" id="name" name="name" required>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label for="email">{{ t('email') }}</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">{{ t('password') }}</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button class="btn-primary" type="submit">{{ t('signup') }}</button>
+    </form>
+
+    <p>Already have an account? <a href="#" onclick="openLoginModal()">Login</a></p>
 </section>
 
-<section class="testimonies fade-in">
-    <h3 data-i18n="testimonies">{{ t('testimonies') }}</h3>
-    <div class="testimony-list">
-        {% for t_item in testimonies %}
-        <blockquote class="testimony">
-            <p>"{{ t_item.text }}"</p>
-            <footer>- {{ t_item.name }}</footer>
-        </blockquote>
-        {% endfor %}
-    </div>
-</section>
 {% endblock %}
