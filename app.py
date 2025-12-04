@@ -19,9 +19,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-# ---------------------------
 # DATABASE MODELS
-# ---------------------------
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,16 +36,12 @@ class User(db.Model):
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
 
-
-
-
 class Tutorial(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     platform = db.Column(db.String(20), nullable=False)  # 'ios', 'android'
     category = db.Column(db.String(100), nullable=False)
     title = db.Column(db.String(200), nullable=False)
-
-
+    
 class Progress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -55,8 +49,6 @@ class Progress(db.Model):
     completed = db.Column(db.Boolean, default=False)
 
     tutorial = db.relationship("Tutorial")
-
-
 class ContactMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
@@ -175,28 +167,33 @@ def set_language(lang):
     session['lang'] = lang
     return redirect(request.referrer or url_for('index'))
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    email = request.form.get('username')
-    password = request.form.get('password')
+    if request.method == 'POST':
+        email = request.form.get('username')
+        password = request.form.get('password')
 
-    user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first()
 
-    if user and user.check_password(password):
-        session['user_id'] = user.id
-        session['user'] = user.name
-        flash("Logged in successfully!")
+        if user and user.check_password(password):
+            session['user_id'] = user.id
+            session['user'] = user.name
+            flash("Logged in successfully!")
+            return redirect(url_for('index'))
+
+        flash("Incorrect email or password.")
         return redirect(url_for('index'))
 
-    flash("Incorrect email or password.")
+    # GET → do not load login.html because you don't have one
     return redirect(url_for('index'))
 
 
-@app.route('/logout')
+@app.route("/logout")
 def logout():
-    session.pop('user', None)
-    flash("Logged out")
-    return redirect(url_for('index'))
+    session.clear()      # Clears all session data
+    flash("You have been logged out.", "info")
+    return redirect(url_for("login"))  # Sends user to login page
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -244,6 +241,9 @@ def complete_tutorial(tutorial_id):
     db.session.commit()
 
     return jsonify({'success': True})
+
+
+
 
 
 @app.route('/ios')
@@ -422,11 +422,10 @@ def my_progress():
     progress = Progress.query.filter_by(user_id=user_id).all()
     completed_ids = [p.tutorial_id for p in progress if p.completed]
 
+
     return render_template('my_progress.html',
                            tutorials=tutorials,
                            completed_ids=completed_ids)
-
-
 
 
 if __name__ == '__main__':
