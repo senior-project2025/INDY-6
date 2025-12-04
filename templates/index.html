@@ -14,18 +14,15 @@
 {% endif %}
   <p class="mission" data-i18n="mission">{{ t('mission') }}</p>
 
-  <!-- Promo video (optional placeholder) -->
-  <div class="hero-video">
-    <iframe
-      width="100%"
-      height="500"
-      src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID"
-      title="YouTube video"
-      frameborder="0"
-      allow="autoplay; encrypted-media"
-      allowfullscreen
-    ></iframe>
-  </div>
+ <!-- Hero illustration -->
+<div class="hero-video">
+  <img 
+      src="{{ url_for('static', filename='images/hero-idea.png') }}" 
+      alt="Person learning on their phone with a light bulb idea"
+      class="hero-illustration"
+  >
+</div>
+
 
   <!-- Device Selection -->
   <div class="device-card">

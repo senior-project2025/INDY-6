@@ -864,3 +864,17 @@ main#main-content {
     .profile-icon img:hover {
         transform: scale(1.05);
     }
+    .hero-video {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .hero-illustration {
+        width: 70%;
+        max-width: 600px;              /* scales image for small screens */
+        height: auto;
+        display: block;
+        border-radius: 16px;
+    }
+    
