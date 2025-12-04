@@ -246,16 +246,20 @@ def complete_tutorial(tutorial_id):
     return jsonify({'success': True})
 
 
-
-
-
 @app.route('/ios')
 def ios_page():
     tutorials = [
-        {'category': 'Text Messaging', 'items': ['Send a message', 'Attach photo', 'Group chat']},
-        {'category': 'Contacts', 'items': ['Add contact', 'Import contacts']},
+        {
+            'category': 'Getting Started',
+            'items': [
+                'How to Download from App Store',
+                'How to Use FaceTime',
+                'How to Use iMessage'
+            ]
+        }
     ]
     return render_template('tutorials_ios.html', tutorials=tutorials)
+
 
 @app.route('/android')
 def android_page():

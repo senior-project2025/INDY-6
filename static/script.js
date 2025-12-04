@@ -153,4 +153,35 @@
             isDark ? disableDarkmode() : enableDarkmode();
         });
     }
+
+    // ------------------------------
+    // VIDEO MODAL FUNCTIONALITY
+    // ------------------------------
+    const videoModal = document.getElementById("videoModal");
+    const tutorialVideo = document.getElementById("tutorialVideo");
+    const closeVideo = document.querySelector(".close-video");
+
+    document.querySelectorAll(".video-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const src = btn.getAttribute("data-video");
+            tutorialVideo.src = src;
+            videoModal.classList.add("show");
+            tutorialVideo.play();
+        });
+    });
+
+    closeVideo.addEventListener("click", () => {
+        tutorialVideo.pause();
+        tutorialVideo.currentTime = 0;
+        videoModal.classList.remove("show");
+    });
+
+    videoModal.addEventListener("click", (e) => {
+        if (e.target === videoModal) {
+            tutorialVideo.pause();
+            tutorialVideo.currentTime = 0;
+            videoModal.classList.remove("show");
+        }
+    });
+
 });
