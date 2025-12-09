@@ -1,26 +1,60 @@
 {% extends "base.html" %}
 {% block content %}
-<main class="tutorial-page">
-  <h2>🤖 Android Tutorials</h2>
-  <p>Learn how to make the most out of your Android phone with these helpful guides.</p>
-  
-  <input id="tutorialSearch" placeholder="Search Tutorials" type="text" class="tutorial-search"/>
 
-  {% if tutorials %}
-  <div class="tutorial-grid">
-    {% for t in tutorials %}
-    <div class="tutorial-card">
-      <h3>{{ t.category }}</h3>
-      <ul>
-        {% for item in t["items"] %}
-        <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
+<main class="tutorial-page">
+    <h2>🤖 Android Tutorials</h2>
+    <p>Learn how to make the most out of your Android phone with these helpful guides.</p>
+
+    <input id="tutorialSearch" placeholder="Search Tutorials" type="text" class="tutorial-search" />
+
+    <div class="tutorial-grid">
+        <div class="tutorial-card">
+            <h3>Getting Started</h3>
+
+            <div class="video-list">
+
+                <!-- VIDEO: Download Play Store -->
+                <div class="video-card"
+                     data-video="{{ url_for('static', filename='android_videos/How-To-Download-From-Play-Store.mp4') }}">
+                    <img src="{{ url_for('static', filename='images/thumbnail.jpg') }}"
+                         class="video-thumb"
+                         alt="How to Download from Play Store thumbnail">
+
+                    <p class="video-title">▶️ How to Download from Play Store</p>
+                </div>
+
+                <!-- VIDEO: Text on Messages -->
+                <div class="video-card"
+                     data-video="{{ url_for('static', filename='android_videos/How-To-Text-On-Android-Messages.mp4') }}">
+                    <img src="{{ url_for('static', filename='images/thumbnail.jpg') }}"
+                         class="video-thumb"
+                         alt="How to Text on Android Messages thumbnail">
+
+                    <p class="video-title">▶️ How to Text on Android Messages</p>
+                </div>
+
+                <!-- VIDEO: Video Call on Android -->
+                <div class="video-card"
+                     data-video="{{ url_for('static', filename='android_videos/How-To-Video-Call-On-Android.mp4') }}">
+                    <img src="{{ url_for('static', filename='images/thumbnail.jpg') }}"
+                         class="video-thumb"
+                         alt="How to Video Call on Android thumbnail">
+
+                    <p class="video-title">▶️ How to Video Call on Android</p>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-    {% endfor %}
-  </div>
-  {% else %}
-  <p class="no-tutorials">No Android tutorials available yet. Check back soon!</p>
-  {% endif %}
 </main>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="video-modal">
+    <div class="video-wrapper">
+        <button class="close-video">✕</button>
+        <video id="tutorialVideo" controls></video>
+    </div>
+</div>
+
 {% endblock %}

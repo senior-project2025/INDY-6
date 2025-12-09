@@ -35,42 +35,27 @@
         if (e.target === langModal) langModal.classList.remove('show');
     });
 
-    // --- Language selection ---
+    // --- NEW LANGUAGE SELECTION (clean + animated reload) ---
     document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             const lang = btn.getAttribute('data-lang');
-            fetch(`/set_language/${lang}`).then(() => {
-                const elementsToTranslate = Array.from(document.querySelectorAll('[data-i18n], [data-translate-key], .translate-text'))
-                    .filter(el => !el.classList.contains('no-translate') && !el.hasAttribute('data-no-translate'));
+            const overlay = document.getElementById('loadingOverlay');
 
-                const items = elementsToTranslate.map(el => {
-                    const key = el.getAttribute('data-translate-key') || el.getAttribute('data-i18n') || `text:${el.innerText.slice(0, 60)}`;
-                    return { key: key, text: el.innerText };
-                });
+            // Show loading overlay + fade animation
+            overlay.style.display = "flex";
+            document.body.classList.add("fade-out");
 
-                fetch('/translate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ items: items, target_language: lang })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        data.translated.forEach(item => {
-                            let el = document.querySelector(`[data-translate-key="${item.key}"]`) ||
-                                document.querySelector(`[data-i18n="${item.key}"]`);
-                            if (!el) {
-                                el = Array.from(document.querySelectorAll('.translate-text'))
-                                    .find(e => e.innerText.trim().startsWith(item.translated_text.slice(0, 8)) === false);
-                            }
-                            if (el && !el.classList.contains('no-translate')) el.innerText = item.translated_text;
-                        });
-                    })
-                    .catch(err => console.error('Translation error:', err));
-            });
+            // Update language server-side
+            await fetch(`/set_language/${lang}`);
+
+            // Smooth transition then reload
+            setTimeout(() => {
+                window.location.reload();
+            }, 350);
         });
     });
 
-    // --- Reload page after language form submit ---
+    // (Optional old form submit reload — keep it safe)
     if (langForm) {
         langForm.addEventListener('submit', () => {
             setTimeout(() => window.location.reload(), 100);
@@ -86,7 +71,7 @@
         });
     });
 
-    // FAQ Search bar
+    // FAQ Search
     if (searchInput) {
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.toLowerCase();
@@ -102,21 +87,32 @@
         });
     }
 
-    // ios/android page search
+    // iOS/Android tutorial search
     if (tutorialSearchInput) {
         tutorialSearchInput.addEventListener('input', () => {
             const query = tutorialSearchInput.value.toLowerCase();
 
-            tutorialCards.forEach(card => {
-                const category = card.querySelector('h3').textContent.toLowerCase();
-                const items = Array.from(card.querySelectorAll('li')).map(li => li.textContent.toLowerCase());
-                const match = category.includes(query) || items.some(item => item.includes(query));
-                card.style.display = match ? '' : 'none';
+            document.querySelectorAll('.tutorial-card').forEach(card => {
+                const videos = card.querySelectorAll('.video-card');
+                let anyMatch = false;
+
+                videos.forEach(video => {
+                    const title = video.querySelector('.video-title').textContent.toLowerCase();
+                    if (title.includes(query)) {
+                        video.style.display = "";
+                        anyMatch = true;
+                    } else {
+                        video.style.display = "none";
+                    }
+                });
+
+                card.style.display = anyMatch ? "" : "none";
             });
         });
     }
 
-    // --- DARK MODE (FINAL FIXED VERSION) ---
+
+    // --- DARK MODE ---
     const themeSwitch = document.getElementById('theme-switch');
     const themeIcon = themeSwitch?.querySelector('.theme-icon');
     const themeText = themeSwitch?.querySelector('.theme-text');
@@ -154,16 +150,14 @@
         });
     }
 
-    // ------------------------------
-    // VIDEO MODAL FUNCTIONALITY
-    // ------------------------------
+    // --- VIDEO MODAL ---
     const videoModal = document.getElementById("videoModal");
     const tutorialVideo = document.getElementById("tutorialVideo");
     const closeVideo = document.querySelector(".close-video");
 
-    document.querySelectorAll(".video-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const src = btn.getAttribute("data-video");
+    document.querySelectorAll(".video-card").forEach(card => {
+        card.addEventListener("click", () => {
+            const src = card.getAttribute("data-video");
             tutorialVideo.src = src;
             videoModal.classList.add("show");
             tutorialVideo.play();
@@ -183,5 +177,4 @@
             videoModal.classList.remove("show");
         }
     });
-
 });

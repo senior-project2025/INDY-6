@@ -11,37 +11,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
-<!-- Top bar -->
-<header class="topbar">
-    <h1 class="title">
-        <a href="{{ url_for('index') }}" class="brand no-translate">iKnowIT</a>
-    </h1>
+    <!-- Top bar -->
+    <header class="topbar">
+        <h1 class="title">
+            <a href="{{ url_for('index') }}" class="brand no-translate">iKnowIT</a>
+        </h1>
 
-    <div class="actions">
-        {% if 'user' in session %}
+        <div class="actions">
+            {% if 'user' in session %}
             <!-- LOGOUT BUTTON -->
             <a href="{{ url_for('logout') }}" class="btn logout-btn">🚪 Logout</a>
-        {% else %}
+            {% else %}
             <!-- LOGIN BUTTON -->
             <button id="loginBtn" class="btn">
-                👤 <span data-i18n="login">{{ t('login') }}</span>
+                👤 <span data-i18n="login"></span>
             </button>
-        {% endif %}
+            {% endif %}
 
-        <button id="langBtn" class="btn">
-            🌐 <span data-i18n="language">{{ t('language') }}</span>
-        </button>
+            <button id="langBtn" class="btn">
+                🌐 <span data-i18n="language">{{ t('language') }}</span>
+            </button>
 
-        <button id="menuBtn" class="btn">
-            📋 <span data-i18n="menu">{{ t('menu') }}</span>
-        </button>
+            <button id="menuBtn" class="btn">
+                📋 <span data-i18n="menu">{{ t('menu') }}</span>
+            </button>
 
-        <button id="theme-switch" class="btn theme-toggle-btn">
-            <span class="theme-icon">🌙</span>
-            <span class="theme-text">Dark mode</span>
-        </button>
-    </div>
-</header>
+            <button id="theme-switch" class="btn theme-toggle-btn">
+                <span class="theme-icon">🌙</span>
+                <span class="theme-text">Dark mode</span>
+            </button>
+        </div>
+    </header>
 
 
     <!-- Sidebar -->
@@ -111,6 +111,11 @@
             </form>
         </div>
     </div>
+
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

@@ -3,49 +3,48 @@
 
 <!-- Hero Section -->
 <section class="hero fade-in">
-  {% if session.get('user') %}
-<div class="user-info-bar">
-    <span class="user-welcome">Hi, {{ session['user'] }}!</span>
+    {% if session.get('user') %}
+    <div class="user-info-bar">
+        <span class="user-welcome">Hi, {{ session['user'] }}!</span>
 
-    <a href="{{ url_for('profile') }}" class="profile-icon">
-        <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="Profile" />
-    </a>
-</div>
-{% endif %}
-  <p class="mission" data-i18n="mission">{{ t('mission') }}</p>
-
- <!-- Hero illustration -->
-<div class="hero-video">
-  <img 
-      src="{{ url_for('static', filename='images/hero-idea.png') }}" 
-      alt="Person learning on their phone with a light bulb idea"
-      class="hero-illustration"
-  >
-</div>
-
-
-  <!-- Device Selection -->
-  <div class="device-card">
-    <h3 data-i18n="choose_device">{{ t('choose_device') }}</h3>
-    <div class="device-buttons">
-      <a class="device-btn ios" href="{{ url_for('ios_page') }}" data-i18n="ios">
-        {{ t('ios') }}
-        <img
-          src="{{ url_for('static', filename='images/ios.png') }}"
-          alt="iOS Logo"
-          class="platform-icon"
-        />
-      </a>
-      <a class="device-btn android" href="{{ url_for('android_page') }}" data-i18n="android">
-        {{ t('android') }}
-        <img
-          src="{{ url_for('static', filename='images/android.png') }}"
-          alt="Android Logo"
-          class="platform-icon"
-        />
-      </a>
+        <a href="{{ url_for('profile') }}" class="profile-icon">
+            <img src="{{ url_for('static', filename='images/user_icon.png') }}" alt="Profile" />
+        </a>
     </div>
-  </div>
+    {% endif %}
+    <p class="mission" data-i18n="mission">{{ t('mission') }}</p>
+
+    <!-- promo video -->
+    <div class="hero-video">
+        <video id="promoVideo"
+               class="hero-illustration"
+               playsinline
+               preload="metadata"
+               controls>
+            <source src="{{ url_for('static', filename='misc/Bridging The Gap - Digital Literacy.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+
+    <!-- Device Selection -->
+    <div class="device-card">
+        <h3 data-i18n="choose_device">{{ t('choose_device') }}</h3>
+        <div class="device-buttons">
+            <a class="device-btn ios" href="{{ url_for('ios_page') }}" data-i18n="ios">
+                {{ t('ios') }}
+                <img src="{{ url_for('static', filename='images/ios.png') }}"
+                     alt="iOS Logo"
+                     class="platform-icon" />
+            </a>
+            <a class="device-btn android" href="{{ url_for('android_page') }}" data-i18n="android">
+                {{ t('android') }}
+                <img src="{{ url_for('static', filename='images/android.png') }}"
+                     alt="Android Logo"
+                     class="platform-icon" />
+            </a>
+        </div>
+    </div>
 </section>
 
 <!-- Testimonials Section -->

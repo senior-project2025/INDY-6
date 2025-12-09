@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+
 <main class="tutorial-page">
     <h2>🍎 iOS Tutorials</h2>
     <p>Learn how to make the most out of your iPhone with these helpful guides.</p>
 
     <input id="tutorialSearch" placeholder="Search Tutorials" type="text" class="tutorial-search" />
-
-    {% set video_files = {
-    "How-To-Download-From-App-Store": "How-To-Download-From-App-Store.mp4",
-    "How-To-Use-FaceTime": "How-To-Use-FaceTime.mp4",
-    "How-To-Use-iMessage": "How-To-Use-iMessage.mp4"
-    } %}
 
     {% if tutorials %}
     <div class="tutorial-grid">
@@ -20,10 +15,18 @@
 
             <div class="video-list">
                 {% for item in t["items"] %}
-                <button class="video-btn"
-                        data-video="{{ url_for('static', filename='ios_videos/' ~ video_files[item]) }}">
-                    ▶️ {{ item }}
-                </button>
+
+                {% set file = item.replace(" ", "-") %}
+                {% set video_path = file ~ ".mp4" %}
+
+                <div class="video-card" data-video="{{ url_for('static', filename='ios_videos/' ~ video_path) }}">
+                    <img src="{{ url_for('static', filename='images/thumbnail.jpg') }}"
+                         class="video-thumb"
+                         alt="{{ item }} thumbnail">
+
+                    <p class="video-title">▶️ {{ item }}</p>
+                </div>
+
                 {% endfor %}
             </div>
 
@@ -42,4 +45,5 @@
         <video id="tutorialVideo" controls></video>
     </div>
 </div>
+
 {% endblock %}
