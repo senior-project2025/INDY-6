@@ -5,7 +5,7 @@ from deep_translator import GoogleTranslator # type: ignore
 import threading   
 
 app = Flask(__name__)
-app.secret_key = "replace-with-a-strong-random-secret"
+app.secret_key = "iKnowIt"
 
 
 from flask_sqlalchemy import SQLAlchemy
